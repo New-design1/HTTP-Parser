@@ -22,10 +22,7 @@ namespace HTTP
         {
             try
             {
-                //using HttpClient httpClient = new HttpClient();
-                //string postContent = "{\"query\":\"query SearchReportWoodDeal($size: Int!, $number: Int!, $filter: Filter, $orders: [Order!]) {\\n  searchReportWoodDeal(filter: $filter, pageable: {number: $number, size: $size}, orders: $orders) {\\n    content {\\n      sellerName\\n      sellerInn\\n      buyerName\\n      buyerInn\\n      woodVolumeBuyer\\n      woodVolumeSeller\\n      dealDate\\n      dealNumber\\n      __typename\\n    }\\n    __typename\\n  }\\n}\\n\",\"variables\":{\"size\":20,\"number\":{pageNumber},\"filter\":null,\"orders\":null},\"operationName\":\"SearchReportWoodDeal\"}";
-                //using StringContent httpContent = new StringContent("{\"query\":\"query SearchReportWoodDeal($size: Int!, $number: Int!, $filter: Filter, $orders: [Order!]) {\\n  searchReportWoodDeal(filter: $filter, pageable: {number: $number, size: $size}, orders: $orders) {\\n    content {\\n      sellerName\\n      sellerInn\\n      buyerName\\n      buyerInn\\n      woodVolumeBuyer\\n      woodVolumeSeller\\n      dealDate\\n      dealNumber\\n      __typename\\n    }\\n    __typename\\n  }\\n}\\n\",\"variables\":{\"size\":20,\"number\":0,\"filter\":null,\"orders\":null},\"operationName\":\"SearchReportWoodDeal\"}");
-                var s = System.Text.Json.JsonSerializer.Serialize(new Rootobj(0));
+                var s = System.Text.Json.JsonSerializer.Serialize(new Rootobj(pageNumber));
                 using StringContent httpContent = new StringContent(s);
                 using HttpRequestMessage? request = new HttpRequestMessage(HttpMethod.Post, "https://www.lesegais.ru/open-area/graphql");
                 request.Content = httpContent;
@@ -33,8 +30,8 @@ namespace HTTP
                 using var response = await httpClient.SendAsync(request);
                 var responsContent = await response.Content.ReadFromJsonAsync<Rootobject>();
                 foreach (var respon in responsContent.data.searchReportWoodDeal.content)
-                Console.WriteLine($"{respon.sellerName} {respon.sellerInn} {respon.buyerName} {respon.buyerInn} {respon.woodVolumeBuyer} {respon.woodVolumeSeller} {respon.dealDate} {respon.dealNumber} {respon.__typename}");
-                Console.WriteLine(responsContent);
+                Console.WriteLine($"{respon.dealNumber} {respon.sellerName} {respon.sellerInn} {respon.buyerName} {respon.buyerInn} {respon.dealDate} {respon.woodVolumeSeller}/{respon.woodVolumeBuyer}");
+                
             }
             catch (Exception ex) { Console.WriteLine(ex.Message); }
         }
