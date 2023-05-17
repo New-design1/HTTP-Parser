@@ -13,12 +13,13 @@ namespace HTTP
     internal class Request
     {
        static HttpClient httpClient;
-       //public string PageNumber;
+       
        public Request() 
         { 
             httpClient = new HttpClient();
         }
-        public async Task GetPage(int pageNumber)
+        
+        public async Task<Rootobject?> GetPage(int pageNumber)
         {
             try
             {
@@ -29,11 +30,18 @@ namespace HTTP
                 request.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 YaBrowser/23.3.3.721 Yowser/2.5 Safari/537.36");
                 using var response = await httpClient.SendAsync(request);
                 var responsContent = await response.Content.ReadFromJsonAsync<Rootobject>();
-                foreach (var respon in responsContent.data.searchReportWoodDeal.content)
-                Console.WriteLine($"{respon.dealNumber} {respon.sellerName} {respon.sellerInn} {respon.buyerName} {respon.buyerInn} {respon.dealDate} {respon.woodVolumeSeller}/{respon.woodVolumeBuyer}");
+                return responsContent;
+                //foreach (var respon in responsContent.data.searchReportWoodDeal.content)
+                //Console.WriteLine($"{respon.dealNumber} {respon.sellerName} {respon.sellerInn} {respon.buyerName} {respon.buyerInn} {respon.dealDate} {respon.woodVolumeSeller}/{respon.woodVolumeBuyer}");
                 
             }
-            catch (Exception ex) { Console.WriteLine(ex.Message); }
+            catch (Exception ex) 
+            { 
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+            
+            
         }
 
         public async Task GetPageCount()
