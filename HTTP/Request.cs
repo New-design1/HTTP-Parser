@@ -5,6 +5,7 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using HttpParser.JsonObjects;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 
@@ -19,21 +20,18 @@ namespace HTTP
             httpClient = new HttpClient();
         }
         
-        public async Task<Rootobject?> GetPage(int pageNumber)
+        public async Task<PageResponse?> GetPage(int pageNumber)
         {
             try
             {
-                var s = System.Text.Json.JsonSerializer.Serialize(new Rootobj(pageNumber));
-                using StringContent httpContent = new StringContent(s);
+                string content = System.Text.Json.JsonSerializer.Serialize(new PageRequest(pageNumber));
+                using StringContent httpContent = new StringContent(content);
                 using HttpRequestMessage? request = new HttpRequestMessage(HttpMethod.Post, "https://www.lesegais.ru/open-area/graphql");
                 request.Content = httpContent;
                 request.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 YaBrowser/23.3.3.721 Yowser/2.5 Safari/537.36");
                 using var response = await httpClient.SendAsync(request);
-                var responsContent = await response.Content.ReadFromJsonAsync<Rootobject>();
-                return responsContent;
-                //foreach (var respon in responsContent.data.searchReportWoodDeal.content)
-                //Console.WriteLine($"{respon.dealNumber} {respon.sellerName} {respon.sellerInn} {respon.buyerName} {respon.buyerInn} {respon.dealDate} {respon.woodVolumeSeller}/{respon.woodVolumeBuyer}");
-                
+                var responseContent = await response.Content.ReadFromJsonAsync<PageResponse>();
+                return responseContent;
             }
             catch (Exception ex) 
             { 
@@ -44,23 +42,25 @@ namespace HTTP
             
         }
 
-        public async Task GetPageCount()
+        public async Task<int?> GetPageCount()
         {
             try
             {
-                //using HttpClient httpClient = new HttpClient();
-                using StringContent httpContent = new StringContent("{\"query\":\"query SearchReportWoodDeal($size: Int!, $number: Int!, $filter: Filter, $orders: [Order!]) {\\n  searchReportWoodDeal(filter: $filter, pageable: {number: $number, size: $size}, orders: $orders) {\\n    content {\\n      sellerName\\n      sellerInn\\n      buyerName\\n      buyerInn\\n      woodVolumeBuyer\\n      woodVolumeSeller\\n      dealDate\\n      dealNumber\\n      __typename\\n    }\\n    __typename\\n  }\\n}\\n\",\"variables\":{\"size\":20,\"number\":0,\"filter\":null,\"orders\":null},\"operationName\":\"SearchReportWoodDeal\"}");
-
+                string content = System.Text.Json.JsonSerializer.Serialize(new PageCountRequest());
+                using StringContent httpContent = new StringContent(content);
                 using HttpRequestMessage? request = new HttpRequestMessage(HttpMethod.Post, "https://www.lesegais.ru/open-area/graphql");
                 request.Content = httpContent;
                 request.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 YaBrowser/23.3.3.721 Yowser/2.5 Safari/537.36");
                 using var response = await httpClient.SendAsync(request);
-                var responsContent = await response.Content.ReadFromJsonAsync<Rootobject>();
-                foreach (var respon in responsContent.data.searchReportWoodDeal.content)
-                    Console.WriteLine($"{respon.sellerName} {respon.sellerInn} {respon.buyerName} {respon.buyerInn} {respon.woodVolumeBuyer} {respon.woodVolumeSeller} {respon.dealDate} {respon.dealNumber} {respon.__typename}");
-                Console.WriteLine(responsContent);
+                var responseContent = await response.Content.ReadFromJsonAsync<PageCountResponse>();
+                int? pageCount = responseContent?.data.searchReportWoodDeal.total / 20;
+                return responseContent?.data.searchReportWoodDeal.total % 20 != 0 ? pageCount + 1 : pageCount;
             }
-            catch (Exception ex) { Console.WriteLine(ex.Message); }
+            catch (Exception ex) 
+            { 
+                Console.WriteLine(ex.Message);
+                return null;
+            }
         }
     }
 }

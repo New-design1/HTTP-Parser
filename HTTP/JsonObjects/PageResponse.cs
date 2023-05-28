@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HTTP
+namespace HttpParser.JsonObjects
 {
 
-    public class Rootobject
+    public class PageResponse
     {
         public Data data { get; set; }
     }
