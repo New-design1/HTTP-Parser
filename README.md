@@ -4,8 +4,11 @@
 Примеры работы:
 
 Вывод на консоль
-![image](https://github.com/New-design1/HTTP/assets/61688382/0232927c-f031-4853-9e18-b82029abe410)
+![image](https://github.com/New-design1/HTTP/assets/61688382/6960c004-7a06-4357-bda5-ccf9663c6d91)
 
 Вывод в файл
 ![image](https://github.com/New-design1/HTTP/assets/61688382/effc7f27-6e16-48a1-8633-c6217d5f93fa)
+
+![image](https://github.com/New-design1/HTTP/assets/61688382/bfd5624d-ffe4-41d7-a911-0aa1575a5cad)
+
 
