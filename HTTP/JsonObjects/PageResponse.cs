@@ -25,6 +25,7 @@ namespace HttpParser.JsonObjects
 
     public class Content
     {
+        public string dealNumber { get; set; }
         public string sellerName { get; set; }
         public string sellerInn { get; set; }
         public string buyerName { get; set; }
@@ -32,7 +33,6 @@ namespace HttpParser.JsonObjects
         public float woodVolumeBuyer { get; set; }
         public float woodVolumeSeller { get; set; }
         public string dealDate { get; set; }
-        public string dealNumber { get; set; }
         public string __typename { get; set; }
     }
 

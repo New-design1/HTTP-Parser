@@ -9,6 +9,7 @@ using System.Drawing;
 using Newtonsoft.Json;
 using HttpParser.OutputMethods;
 using System.Text.RegularExpressions;
+using System.IO;
 
 namespace HTTP
 {
@@ -96,7 +97,26 @@ namespace HTTP
 
                 }
             }
-                Console.ReadKey();
+            if(outputMethod == 3)
+            {
+                if (pages.Count == 1)
+                {
+                    var response = await request.GetPage(pages[0] - 1);
+
+                    OutputToDB.WriteToDB(response);
+                }
+                if(pages.Count == 2) 
+                {
+                    for (int i = pages[0] - 1; i <= pages[1] - 1; i++)
+                    {
+                        var response = await request.GetPage(i);
+                        OutputToDB.WriteToDB(response);
+                    }
+                }
+            }
+
+            Console.WriteLine("Нажмите любую клавишу, чтобы выйти");
+            Console.ReadKey();
             
         }
        
