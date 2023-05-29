@@ -14,7 +14,6 @@ namespace HttpParser.OutputMethods
             foreach (var content in rootobject.data.searchReportWoodDeal.content)
                 Console.WriteLine($"{content.dealNumber} {content.sellerName} {content.sellerInn} {content.buyerName} {content.buyerInn} " +
                     $"{content.dealDate} {content.woodVolumeSeller}/{content.woodVolumeBuyer}");
-
         }
     }
 }

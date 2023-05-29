@@ -16,9 +16,9 @@ namespace HttpParser.OutputMethods
             { 
                 foreach (var content in page.data.searchReportWoodDeal.content)
                 {
-                    DealWhithWood deal = new DealWhithWood()
+                    DealWithWood deal = new DealWithWood()
                     {
-                        DealWhithWoodId = content.dealNumber,
+                        DealWithWoodId = content.dealNumber,
                         SellerName = content.sellerName,
                         SellerInn = content.sellerInn,
                         BuyerName = content.buyerName,
@@ -27,7 +27,7 @@ namespace HttpParser.OutputMethods
                         WoodVolumeBuyer= content.woodVolumeBuyer,
                         DealDate= content.dealDate
                     };
-                    db.DealsWhithWood.Add(deal);
+                    db.DealsWithWood.Add(deal);
                 }
                 db.SaveChanges();
             }
@@ -36,20 +36,20 @@ namespace HttpParser.OutputMethods
     }
     public class ApplicationContext : DbContext
     {
-        public DbSet<DealWhithWood> DealsWhithWood => Set<DealWhithWood>();
+        public DbSet<DealWithWood> DealsWithWood => Set<DealWithWood>();
 
         public ApplicationContext() => Database.EnsureCreated();
         
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite(@$"Data Source={Environment.CurrentDirectory}\helloapp.db");
+            optionsBuilder.UseSqlite(@$"Data Source={Environment.CurrentDirectory}\OutputFile.db");
         }
     }
 
-    public class DealWhithWood
+    public class DealWithWood
     {
-        public string DealWhithWoodId { get; set; }
+        public string DealWithWoodId { get; set; }
         public string SellerName { get; set; }
         public string SellerInn { get; set; }
         public string BuyerName { get; set; }

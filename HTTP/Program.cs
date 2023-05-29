@@ -101,12 +101,14 @@ namespace HTTP
             {
                 if (pages.Count == 1)
                 {
+                    Console.WriteLine("Файл OutputFile.db будте сохранен в текущей директории");
                     var response = await request.GetPage(pages[0] - 1);
 
                     OutputToDB.WriteToDB(response);
                 }
                 if(pages.Count == 2) 
                 {
+                    Console.WriteLine("Файл OutputFile.db будте сохранен в текущей директории");
                     for (int i = pages[0] - 1; i <= pages[1] - 1; i++)
                     {
                         var response = await request.GetPage(i);

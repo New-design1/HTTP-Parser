@@ -53,7 +53,6 @@ namespace HttpParser.JsonObjects
         public int size { get; set; }
         public int number { get; set; }
         public object? filter { get; set; }
-
         public object? orders { get; set; }
     }
 
