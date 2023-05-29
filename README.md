@@ -4,12 +4,12 @@
 Примеры работы:
 
 Вывод на консоль
-![image](https://github.com/New-design1/HTTP/assets/61688382/6960c004-7a06-4357-bda5-ccf9663c6d91)
-![image](https://github.com/New-design1/HTTP-Parser/assets/61688382/1cc6d93a-10fd-4918-974f-065b78be0986)
+![image](https://github.com/New-design1/HTTP-Parser/assets/61688382/04d626bc-2938-4429-8d12-b0be22e8e7cd)
 
 Вывод в файл
-![image](https://github.com/New-design1/HTTP/assets/61688382/effc7f27-6e16-48a1-8633-c6217d5f93fa)
+![image](https://github.com/New-design1/HTTP-Parser/assets/61688382/33b1c3c9-486a-44df-910e-5f016ece5b6f)
 
-![image](https://github.com/New-design1/HTTP/assets/61688382/bfd5624d-ffe4-41d7-a911-0aa1575a5cad)
+![image](https://github.com/New-design1/HTTP-Parser/assets/61688382/ee55427f-de46-4e21-ac8e-e44ee8e996b5)
+
 
 
