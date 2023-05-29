@@ -4,6 +4,7 @@
 Примеры работы:
 
 Вывод на консоль
+
 ![image](https://github.com/New-design1/HTTP-Parser/assets/61688382/04d626bc-2938-4429-8d12-b0be22e8e7cd)
 
 Вывод в файл
